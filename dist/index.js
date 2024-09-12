@@ -113,7 +113,9 @@ const newPost = {
 // ------------------
 //argument will only accept post types
 function createPost(post) {
-    console.log(`Created post named ${post.title} by ${post.author.name} at ${post.createdAt}`);
+    //   console.log(
+    //     `Created post named ${post.title} by ${post.author.name} at ${post.createdAt}`
+    //   );
 }
 createPost({
     title: "Some random post",
@@ -145,6 +147,24 @@ const userTwo = {
     occupation: "tech lead",
 };
 function formatUser(user) {
-    console.log(`User ${user.name} is a reknowned ${user.occupation}`);
+    //   console.log(`User ${user.name} is a reknowned ${user.occupation}`);
 }
 formatUser(userTwo);
+//-------------------
+// UNION TYPES = allow TS variables/values to hold values of different types
+// ------------------
+let id;
+id = 123441;
+id = "1239e";
+let email = null;
+email = "somecoolusername@gmail.com";
+//-------------------
+// UNION TYPES PITFALL
+// ------------------
+function swapIdType(val) {
+    //can only use methods and props common to
+    //both union types
+    //pasrseInt(val) -> not allowed
+    //  return parseInt(val);
+}
+console.log(swapIdType("60"));
