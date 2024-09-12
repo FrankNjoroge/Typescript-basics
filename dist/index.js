@@ -153,18 +153,51 @@ formatUser(userTwo);
 //-------------------
 // UNION TYPES = allow TS variables/values to hold values of different types
 // ------------------
-let id;
-id = 123441;
-id = "1239e";
+let someId;
+someId = 123441;
+someId = "1239e";
 let email = null;
 email = "somecoolusername@gmail.com";
 //-------------------
 // UNION TYPES PITFALL
 // ------------------
-function swapIdType(val) {
-    //can only use methods and props common to
-    //both union types
-    //pasrseInt(val) -> not allowed
-    //  return parseInt(val);
+// function swapIdType(val: userId): userId {
+//   //can only use methods and props common to
+//   //both union types
+//   //pasrseInt(val) -> not allowed
+//   //  return parseInt(val);
+// }
+// console.log(swapIdType("60"));
+//-------------------
+// TYPE GUARDS = checking for types before doing a specifiv thing on each type
+// ------------------
+function swapIdType(id) {
+    if (typeof id === "string") {
+        return parseInt(id);
+    }
+    else {
+        return id.toString();
+    }
 }
-console.log(swapIdType("60"));
+function logDetails(value) {
+    if (value.type === "person") {
+        console.log(`Welcome ${value.name} of email ${value.email} to our app`);
+    }
+    else {
+        console.log(`Welcome ${value.firstName} aged ${value.age} to our app`);
+    }
+}
+const personA = {
+    type: "person",
+    name: "John Doe",
+    email: "JDOE@yahoo.co.uk",
+    id: 12344,
+};
+const personB = {
+    type: "appUser",
+    firstName: "Sarah",
+    age: 35,
+    id: "9381912",
+};
+logDetails(personB);
+logDetails(personA);

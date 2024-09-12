@@ -241,10 +241,10 @@ formatUser(userTwo);
 // UNION TYPES = allow TS variables/values to hold values of different types
 // ------------------
 
-let id: string | number;
+let someId: string | number;
 
-id = 123441;
-id = "1239e";
+someId = 123441;
+someId = "1239e";
 
 let email: string | null = null;
 email = "somecoolusername@gmail.com";
@@ -254,11 +254,65 @@ type userId = number | string;
 //-------------------
 // UNION TYPES PITFALL
 // ------------------
-function swapIdType(val: userId): userId {
-  //can only use methods and props common to
-  //both union types
-  //pasrseInt(val) -> not allowed
-  //  return parseInt(val);
+// function swapIdType(val: userId): userId {
+//   //can only use methods and props common to
+//   //both union types
+//   //pasrseInt(val) -> not allowed
+
+//   //  return parseInt(val);
+// }
+
+// console.log(swapIdType("60"));
+
+//-------------------
+// TYPE GUARDS = checking for types before doing a specifiv thing on each type
+// ------------------
+
+function swapIdType(id: userId): userId {
+  if (typeof id === "string") {
+    return parseInt(id);
+  } else {
+    return id.toString();
+  }
 }
 
-console.log(swapIdType("60"));
+// console.log(swapIdType(1234), typeof swapIdType(1234));
+// console.log(swapIdType("1234"), typeof swapIdType("1234"));
+
+// TAGGED INTERFACES
+
+interface Person {
+  type: "person";
+  name: string;
+  email: string;
+  id: userId;
+}
+
+interface appUser {
+  type: "appUser";
+  firstName: string;
+  age: number;
+  id: userId;
+}
+
+function logDetails(value: Person | appUser): void {
+  if (value.type === "person") {
+    console.log(`Welcome ${value.name} of email ${value.email} to our app`);
+  } else {
+    console.log(`Welcome ${value.firstName} aged ${value.age} to our app`);
+  }
+}
+const personA: Person = {
+  type: "person",
+  name: "John Doe",
+  email: "JDOE@yahoo.co.uk",
+  id: 12344,
+};
+const personB: appUser = {
+  type: "appUser",
+  firstName: "Sarah",
+  age: 35,
+  id: "9381912",
+};
+logDetails(personB);
+logDetails(personA);
